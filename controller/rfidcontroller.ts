@@ -12,11 +12,11 @@ export const AddRfid = async (req: Request, res: Response) => {
                 { error: "Invlid input" }
             )
         }
-
+        const rfidid = rfidID.split(" ").join("");
         const Rfid = await prisma.rfid.create({
             data: {
                 product_id: productID,
-                id: rfidID,
+                id: rfidid,
             }
         })
 
@@ -93,10 +93,10 @@ export const Paymentstatus = async (req: Request, res: Response) => {
                 { msg: "Invlid input" }
             )
         }
-
+        const rfidid = rfidID.split(" ").join("");
         const rfid = await prisma.rfid.findFirst({
             where: {
-                id: rfidID,
+                id: rfidid,
             }
         })
         if (!rfid) {
