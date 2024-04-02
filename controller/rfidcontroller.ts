@@ -90,7 +90,7 @@ export const Paymentstatus = async (req: Request, res: Response) => {
         const rfidID = req.query.rfidID;
         if (typeof (rfidID) != 'string') {
             return res.status(404).json(
-                { error: "Invlid input" }
+                { msg: "Invlid input" }
             )
         }
 
@@ -99,6 +99,9 @@ export const Paymentstatus = async (req: Request, res: Response) => {
                 id: rfidID,
             }
         })
+        if (!rfid) {
+            res.status(400).json({ msg: "INVALID TAG" });
+        }
         if (rfid) {
             if (rfid.payment_status === true) {
                 res.status(200).json({ msg: "payment done" });
@@ -109,7 +112,7 @@ export const Paymentstatus = async (req: Request, res: Response) => {
         }
     } catch (error) {
         res.status(500).json({
-            error: "internal server error"
+            msg: "internal server error"
         })
     }
 }
